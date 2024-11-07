@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Like Hero To Zero (lh2z) - CO2 Emission Data</title>
+</h:head>
+
+<h:body>
+    <h:form>
+        <div class="card p-4">
+            <h:panelGrid columns="2" cellpadding="5" styleClass="grid gap-4">
+                <h:outputLabel for="country"
+                               value="Wählen Sie ein Land:"
+                               styleClass="ui-outputlabel ui-widget"/>
+                <p:selectOneMenu id="country"
+                                 value="#{co2DataBean.selectedCountry}"
+                                 styleClass="w-full">
+                    <f:selectItem itemLabel="--Select Country--" itemValue="" />
+                    <f:selectItems value="#{co2DataBean.countryList}"
+                                   var="country"
+                                   itemLabel="#{country}"
+                                   itemValue="#{country}" />
+                    <p:ajax event="change"
+                            listener="#{co2DataBean.loadData}"
+                            update="dataForm:dataTable"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </div>
+    </h:form>
+
+    <h:form id="dataForm">
+        <p:dataTable id="dataTable" value="#{co2DataBean.co2DataList}" var="data"
+                     paginator="true" rows="10"
+                     emptyMessage="Keine Daten verfügbar.">
+            <p:column headerText="Land">
+                <h:outputText value="#{data.country}" />
+            </p:column>
+            <p:column headerText="Jahr">
+                <h:outputText value="#{data.year}" />
+            </p:column>
+            <p:column headerText="Emission (in Tonnen)">
+                <h:outputText value="#{data.emission}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+
+    <h:panelGroup rendered="#{loginBean.loggedIn}">
+        <h:form>
+            <p:commandButton value="Logout" action="#{loginBean.logout}"
+                             icon="pi pi-sign-out"
+                             styleClass="ui-button-danger"
+                             onclick="return confirm('Möchten Sie sich wirklich abmelden?');" />
+
+            <h:panelGrid columns="2" style="margin-top: 10px;">
+                <p:link outcome="scientist.xhtml"
+                        rendered="#{loginBean.role == 'scientist'}"
+                        value="Daten Einreichen"
+                        styleClass="ui-button-primary"/>
+                <p:link outcome="admin.xhtml"
+                        rendered="#{loginBean.role == 'admin'}"
+                        value="Admin-Bereich"
+                        styleClass="ui-button-primary"/>
+            </h:panelGrid>
+        </h:form>
+    </h:panelGroup>
+    <h:panelGroup rendered="#{not loginBean.loggedIn}">
+        <h:form>
+            <p:commandButton value="Login"
+                             action="login.xhtml?faces-redirect=true"
+                             icon="pi pi-sign-in"
+                             styleClass="ui-button-success"/>
+        </h:form>
+    </h:panelGroup>
+
+</h:body>
+</html>

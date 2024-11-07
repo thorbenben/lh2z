@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Admin-Bereich - Like Hero To Zero (lh2z)</title>
+</h:head>
+<h:body style="background-color: #f4f4f4;">
+    <div class="card" style="max-width: 1200px; margin: 50px auto; padding: 20px;">
+        <h2 class="text-center ui-widget-header" style="margin-bottom: 20px; padding: 10px; border-radius: 4px;">
+            Admin-Bereich - Eingereichte Emissionsdaten Prüfen
+        </h2>
+
+        <h:form id="adminForm">
+            <p:panel styleClass="ui-noborder">
+                <p:messages id="messages" showDetail="false" closable="true" style="margin-bottom: 20px;">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <div class="ui-fluid">
+                    <p:dataTable value="#{adminBean.pendingDataList}"
+                                 var="data"
+                                 paginator="true"
+                                 rows="10"
+                                 styleClass="ui-datatable-striped"
+                                 paginatorPosition="bottom"
+                                 emptyMessage="Keine ausstehenden Datensätze zur Genehmigung.">
+
+                        <p:column headerText="Land" sortBy="#{data.country}">
+                            <h:outputText value="#{data.country}" />
+                        </p:column>
+
+                        <p:column headerText="Jahr" sortBy="#{data.year}">
+                            <h:outputText value="#{data.year}" />
+                        </p:column>
+
+                        <p:column headerText="Emission (in Tonnen)" sortBy="#{data.emission}">
+                            <h:outputText value="#{data.emission}">
+                                <f:convertNumber pattern="#,##0.0000" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Eingereicht von" sortBy="#{data.submittedBy}">
+                            <h:outputText value="#{data.submittedBy}" />
+                        </p:column>
+
+                        <p:column headerText="Aktionen" style="width:250px; text-align: center">
+                            <p:commandButton value="Genehmigen"
+                                             action="#{adminBean.approveData(data.id)}"
+                                             update="@form"
+                                             styleClass="ui-button-success"
+                                             icon="pi pi-check"
+                                             style="margin-right: 10px;">
+                                <p:confirm header="Bestätigung!"
+                                           message="Möchten Sie diese Daten wirklich genehmigen?"
+                                           icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+
+                            <p:commandButton value="Ablehnen"
+                                             action="#{adminBean.rejectData(data.id)}"
+                                             update="@form"
+                                             styleClass="ui-button-danger"
+                                             icon="pi pi-times">
+                                <p:confirm header="Bestätigung"
+                                           message="Möchten Sie diese Daten wirklich ablehnen?"
+                                           icon="pi pi-exclamation-triangle" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
+                    <div style="margin-top: 20px; text-align: right;">
+                        <p:commandButton value="Zurück zur Startseite"
+                                         action="index?faces-redirect=true"
+                                         styleClass="ui-button-secondary"
+                                         icon="pi pi-arrow-left"
+                                         immediate="true"/>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+            <p:commandButton value="Nein" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times"/>
+        </p:confirmDialog>
+    </div>
+</h:body>
+</html>

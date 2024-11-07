@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login - Like Hero To Zero (lh2z)</title>
+</h:head>
+<h:body style="background-color: #f4f4f4;">
+    <div class="card" style="max-width: 400px; margin: 100px auto; padding: 20px;">
+        <h2 class="text-center ui-widget-header" style="margin-bottom: 20px; padding: 10px; border-radius: 4px;">
+            Like Hero To Zero (LH2Z)
+        </h2>
+
+        <h:form>
+            <p:panel styleClass="ui-noborder">
+                <p:messages id="messages" showDetail="false" closable="true" style="margin-bottom: 20px;">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <div class="ui-fluid">
+                    <div class="field">
+                        <p:outputLabel for="username" value="Benutzername:" styleClass="ui-widget font-bold"/>
+                        <p:inputText id="username"
+                                     value="#{loginBean.username}"
+                                     required="true"
+                                     requiredMessage="Bitte geben Sie einen Benutzernamen ein."
+                                     style="margin: 8px 0;"/>
+                    </div>
+
+                    <div class="field" style="margin-top: 16px;">
+                        <p:outputLabel for="password" value="Passwort:" styleClass="ui-widget font-bold"/>
+                        <p:password id="password"
+                                    value="#{loginBean.password}"
+                                    required="true"
+                                    requiredMessage="Bitte geben Sie ein Passwort ein."
+                                    feedback="false"
+                                    style="margin: 8px 0;"/>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <p:commandButton value="Login"
+                                         action="#{loginBean.login}"
+                                         styleClass="ui-button-raised"
+                                         icon="pi pi-sign-in"
+                                         style="width: 100%"/>
+                    </div>
+                </div>
+
+                <p:messages id="globalMessages" globalOnly="true" style="margin-top: 20px;">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <p:panel rendered="#{param.error eq 'true'}"
+                         styleClass="ui-message-error"
+                         style="margin-top: 20px; text-align: center;">
+                    <i class="pi pi-exclamation-triangle" style="margin-right: 5px;"></i>
+                    <span>Ungültige Anmeldedaten. Bitte versuchen Sie es erneut.</span>
+                </p:panel>
+            </p:panel>
+        </h:form>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <p:link outcome="index" value="Zurück zur Startseite" styleClass="ui-link"/>
+        </div>
+    </div>
+</h:body>
+</html>
