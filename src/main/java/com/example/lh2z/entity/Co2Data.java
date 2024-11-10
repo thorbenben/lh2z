@@ -18,7 +18,7 @@ public class Co2Data {
     @Column(nullable = false)
     private Integer year;
 
-    @Column(nullable = false, precision = 15, scale = 2)
+    @Column(nullable = false, precision = 15, scale = 4)
     private BigDecimal emission;
 
     @Enumerated(EnumType.STRING)

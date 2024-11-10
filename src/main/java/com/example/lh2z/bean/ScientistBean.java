@@ -84,7 +84,7 @@ public class ScientistBean implements Serializable {
         }
     }
     */
-    //neue Dateeintragungsmethode, solang der status auf pending steht, kann der eingetragene Datensatz überschrieben werden
+    //neue Dateeintragungsmethode, der Datensatz kann überschrieben werden wenn er existiert
     @Transactional
     public String submitData() {
         if (loginBean.isLoggedIn() && loginBean.getRole() == User.Role.scientist) {
