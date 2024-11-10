@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Daten Einreichen - Like Hero To Zero (lh2z)</title>
@@ -80,7 +80,7 @@
                          styleClass="ui-message-success"
                          style="margin-top: 20px; text-align: center;">
                     <i class="pi pi-check-circle" style="margin-right: 5px;"></i>
-                    <span>Daten erfolgreich eingereicht und zur Genehmigung eingereicht.</span>
+                    <span>Daten erfolgreich eingereicht und zur Genehmigung weitergeleitet.</span>
                 </p:panel>
 
                 <p:panel rendered="#{param.error eq 'true'}"
