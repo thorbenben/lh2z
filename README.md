@@ -46,11 +46,11 @@ Laden Sie Apache Tomcat 10.1.16 von der offiziellen [Apache Tomcat Website](http
 
 ### MySQL Datenbank
 
-1. Erstellen Sie eine neue Datenbank namens `lh2zdb`.
+1. Erstellen Sie eine neue Datenbank namens `h2zdb`.
 2. Importieren Sie die `h2zdb.sql` Datei in Ihre MySQL-Datenbank:
 
 ```bash
-mysql -u username -p lh2zdb < path/to/h2zdb.sql
+mysql -u username -p h2zdb < path/to/h2zdb.sql
 ```
 
 ### Anpassung der `persistence.xml`
